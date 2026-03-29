@@ -70,7 +70,8 @@
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
-        "collection": "all",
+        "collection": "main-collection",
+        "custom_class": "portfolio-featured-products",
         "products_to_show": 8,
         "title": "Featured products",
         "heading_size": "h2",
