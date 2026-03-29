@@ -133,10 +133,6 @@ slider-component.slider-component-full-width {
 }
 
 @media screen and (min-width: 990px) {
-  .slider-component-desktop.page-width {
-    max-width: none;
-  }
-
   .slider--desktop {
     position: relative;
     flex-wrap: inherit;
