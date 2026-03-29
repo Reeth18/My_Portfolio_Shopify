@@ -3770,7 +3770,7 @@ details-disclosure > details {
 
 .portfolio-featured-products .portfolio-project-card__quick-add {
   position: absolute;
-  bottom: 0;
+  top: 0 !important;
   left: 0;
   right: 0;
   padding: 1rem 1.5rem;
