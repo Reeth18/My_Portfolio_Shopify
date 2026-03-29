@@ -92,7 +92,7 @@
       {%- endif -%}
     </div>
 
-    <slider-component class="slider-mobile-gutter{% if section.settings.full_width %} slider-component-full-width{% endif %}{% if show_mobile_slider == false %} page-width{% endif %}{% if show_desktop_slider == false and section.settings.full_width == false %} page-width-desktop{% endif %}{% if show_desktop_slider %} slider-component-desktop{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <slider-component class="slider-mobile-gutter{% if section.settings.full_width %} slider-component-full-width{% endif %}{% if show_mobile_slider == false %} page-width{% endif %}{% if show_desktop_slider == false and section.settings.full_width == false %} page-width-desktop{% endif %}{% if show_desktop_slider %} slider-component-desktop{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}{% if section.settings.custom_class == 'portfolio-featured-products' %} portfolio-slider-wrapper{% endif %}">
       <ul
         id="Slider-{{ section.id }}"
         data-id="{{ section.id }}"
@@ -149,7 +149,7 @@
                         {%- if product.description != blank -%}
                           <p class="portfolio-project-card__description">{{ product.description | strip_html | truncatewords: 15 }}</p>
                         {%- endif -%}
-                        <span class="portfolio-project-card__button">View Project</span>
+                        <span class="portfolio-project-card__button">View Product</span>
                       </div>
                     </a>
                   </div>
@@ -235,7 +235,17 @@
       {%- endif -%}
     </slider-component>
 
-    {%- if section.settings.show_view_all and more_in_collection -%}
+    {%- if section.settings.custom_class == 'portfolio-featured-products' and section.settings.collection != blank -%}
+      <div class="center collection__view-all portfolio-view-all{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        <a
+          href="{{ section.settings.collection.url }}"
+          class="button"
+          aria-label="View All Product"
+        >
+          View All Product
+        </a>
+      </div>
+    {%- elsif section.settings.show_view_all and more_in_collection -%}
       <div class="center collection__view-all{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <a
           href="{{ section.settings.collection.url }}"
