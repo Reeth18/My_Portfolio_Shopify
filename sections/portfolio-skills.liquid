@@ -1,0 +1,539 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<style>
+  .portfolio-skills {
+    --ps-accent: #ff7a00;
+    --ps-accent-rgb: 255, 122, 0;
+    --ps-bg: #f9f8f6;
+    --ps-card-bg: rgba(255, 255, 255, 0.55);
+    --ps-text: #1a1a1a;
+    --ps-text-muted: #555;
+    --ps-border: rgba(255, 255, 255, 0.6);
+    --ps-radius: 16px;
+    --ps-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    --ps-shadow-hover: 0 12px 40px rgba(255, 122, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .portfolio-skills__bg {
+    background-color: var(--ps-bg);
+  }
+
+  .portfolio-skills__header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .portfolio-skills__heading {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--ps-text);
+    margin: 0 0 12px;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .portfolio-skills__heading-accent {
+    color: var(--ps-accent);
+  }
+
+  .portfolio-skills__subheading {
+    font-size: 1.05rem;
+    color: var(--ps-text-muted);
+    margin: 0;
+    font-weight: 400;
+    max-width: 520px;
+    margin-inline: auto;
+    line-height: 1.6;
+  }
+
+  .portfolio-skills__divider {
+    width: 60px;
+    height: 3px;
+    background: var(--ps-accent);
+    border: none;
+    border-radius: 2px;
+    margin: 20px auto 0;
+  }
+
+  .portfolio-skills__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .portfolio-skills__card {
+    position: relative;
+    background: var(--ps-card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--ps-border);
+    border-radius: var(--ps-radius);
+    padding: 32px 36px;
+    box-shadow: var(--ps-shadow);
+    transition:
+      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.4s ease;
+    will-change: transform;
+    cursor: default;
+  }
+
+  .portfolio-skills__card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--ps-radius);
+    border: 1.5px solid transparent;
+    transition: border-color 0.4s ease;
+    pointer-events: none;
+  }
+
+  .portfolio-skills__card:hover {
+    transform: translateY(-6px) scale(1.015);
+    box-shadow: var(--ps-shadow-hover);
+    border-color: rgba(var(--ps-accent-rgb), 0.3);
+  }
+
+  .portfolio-skills__card:hover::before {
+    border-color: rgba(var(--ps-accent-rgb), 0.5);
+  }
+
+  .portfolio-skills__card-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .portfolio-skills__card-indicator {
+    flex-shrink: 0;
+    width: 4px;
+    height: 100%;
+    min-height: 40px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, var(--ps-accent), rgba(var(--ps-accent-rgb), 0.2));
+    transition: min-height 0.4s ease;
+  }
+
+  .portfolio-skills__card:hover .portfolio-skills__card-indicator {
+    min-height: 52px;
+  }
+
+  .portfolio-skills__card-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .portfolio-skills__card-title {
+    font-size: 1.2rem;
+    font-weight: 650;
+    color: var(--ps-text);
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+
+  .portfolio-skills__card-description {
+    font-size: 0.95rem;
+    color: var(--ps-text-muted);
+    margin: 0;
+    line-height: 1.7;
+    font-weight: 400;
+  }
+
+  .portfolio-skills__card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .portfolio-skills__tag {
+    display: inline-block;
+    padding: 4px 14px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ps-accent);
+    background: rgba(var(--ps-accent-rgb), 0.08);
+    border: 1px solid rgba(var(--ps-accent-rgb), 0.15);
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+    transition: background 0.3s ease, border-color 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .portfolio-skills__card:hover .portfolio-skills__tag {
+    background: rgba(var(--ps-accent-rgb), 0.13);
+    border-color: rgba(var(--ps-accent-rgb), 0.3);
+  }
+
+  /* Scroll reveal */
+  .portfolio-skills__card.ps-reveal {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+  }
+
+  .portfolio-skills__card.ps-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* Stagger animation delays set via JS */
+
+  /* Responsive: Tablet */
+  @media screen and (max-width: 989px) {
+    .portfolio-skills__heading {
+      font-size: 2rem;
+    }
+
+    .portfolio-skills__stack {
+      gap: 16px;
+    }
+
+    .portfolio-skills__card {
+      padding: 26px 28px;
+    }
+  }
+
+  /* Responsive: Mobile */
+  @media screen and (max-width: 749px) {
+    .portfolio-skills__header {
+      margin-bottom: 32px;
+    }
+
+    .portfolio-skills__heading {
+      font-size: 1.65rem;
+    }
+
+    .portfolio-skills__subheading {
+      font-size: 0.95rem;
+    }
+
+    .portfolio-skills__stack {
+      gap: 14px;
+      max-width: 100%;
+    }
+
+    .portfolio-skills__card {
+      padding: 22px 20px;
+      border-radius: 12px;
+    }
+
+    .portfolio-skills__card-inner {
+      gap: 14px;
+    }
+
+    .portfolio-skills__card-title {
+      font-size: 1.05rem;
+    }
+
+    .portfolio-skills__card-description {
+      font-size: 0.88rem;
+    }
+
+    .portfolio-skills__tag {
+      font-size: 0.72rem;
+      padding: 3px 11px;
+    }
+  }
+</style>
+
+<div class="portfolio-skills__bg">
+  <div class="portfolio-skills page-width section-{{ section.id }}-padding" data-ps-section>
+    {%- if section.settings.heading != blank -%}
+      <div class="portfolio-skills__header">
+        <h2 class="portfolio-skills__heading">
+          {{ section.settings.heading }}
+        </h2>
+        {%- if section.settings.subheading != blank -%}
+          <p class="portfolio-skills__subheading">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+        <hr class="portfolio-skills__divider">
+      </div>
+    {%- endif -%}
+
+    <div class="portfolio-skills__stack" data-ps-stack>
+      {%- for block in section.blocks -%}
+        <div
+          class="portfolio-skills__card ps-reveal"
+          data-ps-card
+          data-ps-index="{{ forloop.index0 }}"
+          {{ block.shopify_attributes }}
+        >
+          <div class="portfolio-skills__card-inner">
+            <div class="portfolio-skills__card-indicator" aria-hidden="true"></div>
+            <div class="portfolio-skills__card-body">
+              {%- if block.settings.title != blank -%}
+                <h3 class="portfolio-skills__card-title">{{ block.settings.title }}</h3>
+              {%- endif -%}
+
+              {%- if block.settings.description != blank -%}
+                <p class="portfolio-skills__card-description">{{ block.settings.description }}</p>
+              {%- endif -%}
+
+              {%- if block.settings.tags != blank -%}
+                <div class="portfolio-skills__card-tags">
+                  {%- assign tag_list = block.settings.tags | split: ',' -%}
+                  {%- for tag in tag_list -%}
+                    <span class="portfolio-skills__tag">{{ tag | strip }}</span>
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const section = document.querySelector('[data-ps-section]');
+    if (!section) return;
+
+    const cards = section.querySelectorAll('[data-ps-card]');
+    if (!cards.length) return;
+
+    /* ── Scroll Reveal with Intersection Observer ── */
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const card = entry.target;
+            const index = parseInt(card.dataset.psIndex, 10) || 0;
+            const staggerDelay = index * 120;
+
+            card.style.transition = `opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) ${staggerDelay}ms, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) ${staggerDelay}ms`;
+            card.classList.add('ps-visible');
+
+            revealObserver.unobserve(card);
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px',
+      }
+    );
+
+    cards.forEach((card) => revealObserver.observe(card));
+
+    /* ── Parallax Effect ── */
+    const stack = section.querySelector('[data-ps-stack]');
+    let ticking = false;
+    const isMobile = window.matchMedia('(max-width: 749px)').matches;
+
+    function applyParallax() {
+      if (isMobile) return;
+
+      const rect = stack.getBoundingClientRect();
+      const windowH = window.innerHeight;
+
+      /* Only compute when section is in viewport */
+      if (rect.bottom < 0 || rect.top > windowH) {
+        ticking = false;
+        return;
+      }
+
+      const scrollProgress = (windowH - rect.top) / (windowH + rect.height);
+
+      cards.forEach((card) => {
+        const index = parseInt(card.dataset.psIndex, 10) || 0;
+        const depth = 0.03 + index * 0.012;
+        const offset = (scrollProgress - 0.5) * depth * 100;
+
+        /* Combine with hover/reveal transforms via translate only */
+        card.style.setProperty('--ps-parallax-y', `${offset.toFixed(2)}px`);
+      });
+
+      ticking = false;
+    }
+
+    if (!isMobile) {
+      /* Apply parallax offset via CSS custom property */
+      cards.forEach((card) => {
+        card.style.setProperty('--ps-parallax-y', '0px');
+      });
+
+      /* Inject a micro-rule so parallax composes with hover */
+      const styleEl = document.createElement('style');
+      styleEl.textContent = `
+        .portfolio-skills__card.ps-visible {
+          transform: translateY(var(--ps-parallax-y, 0)) scale(1);
+        }
+        .portfolio-skills__card.ps-visible:hover {
+          transform: translateY(calc(var(--ps-parallax-y, 0) - 6px)) scale(1.015);
+        }
+      `;
+      document.head.appendChild(styleEl);
+
+      window.addEventListener(
+        'scroll',
+        () => {
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(applyParallax);
+          }
+        },
+        { passive: true }
+      );
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Portfolio Skills",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Skills & Expertise"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Technologies and tools I work with to build high-performing Shopify stores."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "skill_category",
+      "name": "Skill Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category Title",
+          "default": "Frontend"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Building responsive, pixel-perfect interfaces with modern web standards."
+        },
+        {
+          "type": "text",
+          "id": "tags",
+          "label": "Skills (comma-separated)",
+          "default": "HTML, CSS, JavaScript, Bootstrap",
+          "info": "Enter skills separated by commas."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Portfolio Skills",
+      "blocks": [
+        {
+          "type": "skill_category",
+          "settings": {
+            "title": "Frontend",
+            "description": "Building responsive, pixel-perfect interfaces with modern web standards.",
+            "tags": "HTML, CSS, JavaScript, Bootstrap"
+          }
+        },
+        {
+          "type": "skill_category",
+          "settings": {
+            "title": "Shopify",
+            "description": "End-to-end Shopify development — from custom themes to storefront optimization.",
+            "tags": "Shopify Development, Liquid, Theme Customization"
+          }
+        },
+        {
+          "type": "skill_category",
+          "settings": {
+            "title": "Tools",
+            "description": "Leveraging the right tools for efficient development workflows.",
+            "tags": "Slick Slider, GitHub"
+          }
+        },
+        {
+          "type": "skill_category",
+          "settings": {
+            "title": "Integrations",
+            "description": "Connecting powerful third-party apps to extend store functionality.",
+            "tags": "Klaviyo, Bundles, Subscriptions, Reviews"
+          }
+        },
+        {
+          "type": "skill_category",
+          "settings": {
+            "title": "Data & Analytics",
+            "description": "Turning raw data into actionable insights for smarter business decisions.",
+            "tags": "Google Looker Studio, MS Excel"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
