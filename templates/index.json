@@ -171,12 +171,73 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "portfolio_skills_LWdKd7": {
+      "type": "portfolio-skills",
+      "blocks": {
+        "skill_category_Ar8axx": {
+          "type": "skill_category",
+          "settings": {
+            "title": "Frontend",
+            "description": "Building responsive, pixel-perfect interfaces with modern web standards.",
+            "tags": "HTML, CSS, JavaScript, Bootstrap"
+          }
+        },
+        "skill_category_KqgYPn": {
+          "type": "skill_category",
+          "settings": {
+            "title": "Shopify",
+            "description": "End-to-end Shopify development — from custom themes to storefront optimization.",
+            "tags": "Shopify Development, Liquid, Theme Customization"
+          }
+        },
+        "skill_category_VYkm8K": {
+          "type": "skill_category",
+          "settings": {
+            "title": "Tools",
+            "description": "Leveraging the right tools for efficient development workflows.",
+            "tags": "Slick Slider, GitHub"
+          }
+        },
+        "skill_category_iyeay3": {
+          "type": "skill_category",
+          "settings": {
+            "title": "Integrations",
+            "description": "Connecting powerful third-party apps to extend store functionality.",
+            "tags": "Klaviyo, Bundles, Subscriptions, Reviews"
+          }
+        },
+        "skill_category_NfAAdz": {
+          "type": "skill_category",
+          "settings": {
+            "title": "Data & Analytics",
+            "description": "Turning raw data into actionable insights for smarter business decisions.",
+            "tags": "Google Looker Studio, MS Excel"
+          }
+        }
+      },
+      "block_order": [
+        "skill_category_Ar8axx",
+        "skill_category_KqgYPn",
+        "skill_category_VYkm8K",
+        "skill_category_iyeay3",
+        "skill_category_NfAAdz"
+      ],
+      "name": "Portfolio Skills",
+      "settings": {
+        "heading": "Skills & Expertise",
+        "subheading": "Technologies and tools I work with to build high-performing Shopify stores.",
+        "text_alignment": "center",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
     }
   },
   "order": [
     "portfolio_hero_banner_KBxHfV",
     "image_banner",
     "featured_collection",
-    "portfolio_featured_projects_a8kzFj"
+    "portfolio_featured_projects_a8kzFj",
+    "portfolio_skills_LWdKd7"
   ]
 }
