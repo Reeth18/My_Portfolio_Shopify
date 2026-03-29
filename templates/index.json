@@ -95,11 +95,88 @@
         "padding_top": 44,
         "padding_bottom": 36
       }
+    },
+    "portfolio_featured_projects_a8kzFj": {
+      "type": "portfolio-featured-projects",
+      "blocks": {
+        "project_JhdWDR": {
+          "type": "project",
+          "settings": {
+            "image": "shopify://shop_images/The_Science_Of_A_Sharper_Mind.png",
+            "title": "Zang SMP",
+            "description": "A brief description of this project and the technologies used.",
+            "project_link": ""
+          }
+        },
+        "project_Y3hHt3": {
+          "type": "project",
+          "settings": {
+            "image": "shopify://shop_images/The_Science_Of_A_Sharper_Mind.png",
+            "title": "Zang SMP",
+            "description": "A brief description of this project and the technologies used.",
+            "project_link": ""
+          }
+        },
+        "project_pJkFUw": {
+          "type": "project",
+          "settings": {
+            "image": "shopify://shop_images/The_Science_Of_A_Sharper_Mind.png",
+            "title": "Zang SMP",
+            "description": "A brief description of this project and the technologies used.",
+            "project_link": ""
+          }
+        },
+        "project_hNQAHw": {
+          "type": "project",
+          "settings": {
+            "image": "shopify://shop_images/The_Science_Of_A_Sharper_Mind.png",
+            "title": "Zang SMP",
+            "description": "A brief description of this project and the technologies used.",
+            "project_link": ""
+          }
+        },
+        "project_wqHFXU": {
+          "type": "project",
+          "settings": {
+            "image": "shopify://shop_images/The_Science_Of_A_Sharper_Mind.png",
+            "title": "Zang SMP",
+            "description": "A brief description of this project and the technologies used.",
+            "project_link": ""
+          }
+        },
+        "project_G67ihR": {
+          "type": "project",
+          "settings": {
+            "image": "shopify://shop_images/The_Science_Of_A_Sharper_Mind.png",
+            "title": "Zang SMP",
+            "description": "A brief description of this project and the technologies used.",
+            "project_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "project_JhdWDR",
+        "project_Y3hHt3",
+        "project_pJkFUw",
+        "project_hNQAHw",
+        "project_wqHFXU",
+        "project_G67ihR"
+      ],
+      "name": "Portfolio Featured Projects",
+      "settings": {
+        "heading": "Featured Projects",
+        "heading_size": "h1",
+        "background_color": "#ffffff",
+        "full_width": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "portfolio_hero_banner_KBxHfV",
     "image_banner",
-    "featured_collection"
+    "featured_collection",
+    "portfolio_featured_projects_a8kzFj"
   ]
 }
