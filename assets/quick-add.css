@@ -5,8 +5,58 @@
   z-index: 1;
 }
 
+.quick-add.quick-add--icon {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  margin: 0;
+  z-index: 2;
+  grid-row-start: auto;
+}
+
+.quick-add__submit.quick-add__submit--icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.6rem;
+  height: 3.6rem;
+  min-width: unset;
+  padding: 0;
+  border-radius: 50%;
+  background-color: rgb(var(--color-background));
+  border: 0.1rem solid rgba(var(--color-foreground), 0.1);
+  color: rgb(var(--color-foreground));
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.quick-add__submit.quick-add__submit--icon:hover {
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+}
+
+.quick-add__submit.quick-add__submit--icon:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quick-add__submit.quick-add__submit--icon .icon {
+  width: 1.8rem;
+  height: 1.8rem;
+}
+
+.quick-add__submit.quick-add__submit--icon .loading__spinner {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
 .card--card .quick-add {
   margin: 0 1.3rem 1rem;
+}
+
+.card--card .quick-add.quick-add--icon {
+  margin: 0;
 }
 
 .quick-add-modal {
