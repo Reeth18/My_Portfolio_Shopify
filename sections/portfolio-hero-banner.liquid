@@ -1,75 +1,99 @@
 {{ 'portfolio-hero-banner.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
-  .portfolio-hero {
-    background-color: {{ section.settings.background_color }};
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
   }
 {%- endstyle -%}
 
-<section class="portfolio-hero" id="section-{{ section.id }}">
-  <div class="portfolio-hero__container portfolio-hero__align--{{ section.settings.text_alignment }}">
-    <div class="portfolio-hero__content">
-      {%- if section.settings.name != blank -%}
-        <h1 class="portfolio-hero__heading">{{ section.settings.name }}</h1>
-      {%- endif -%}
-
-      {%- if section.settings.designation != blank -%}
-        <p class="portfolio-hero__designation">{{ section.settings.designation }}</p>
-      {%- endif -%}
-
-      {%- if section.settings.description != blank -%}
-        <div class="portfolio-hero__description">{{ section.settings.description }}</div>
-      {%- endif -%}
-
-      <div class="portfolio-hero__buttons">
-        {%- if section.settings.button_1_label != blank -%}
-          <a
-            href="{{ section.settings.button_1_link }}"
-            class="portfolio-hero__btn portfolio-hero__btn--primary"
-          >
-            {{- section.settings.button_1_label -}}
-          </a>
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="portfolio-hero page-width section-{{ section.id }}-padding">
+    <div class="portfolio-hero__container portfolio-hero__align--{{ section.settings.text_alignment }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <div class="portfolio-hero__content">
+        {%- if section.settings.name != blank -%}
+          <h1 class="portfolio-hero__heading">{{ section.settings.name }}</h1>
         {%- endif -%}
 
-        {%- if section.settings.button_2_label != blank -%}
-          <a
-            href="{{ section.settings.button_2_link }}"
-            class="portfolio-hero__btn portfolio-hero__btn--secondary"
-          >
-            {{- section.settings.button_2_label -}}
-          </a>
+        {%- if section.settings.designation != blank -%}
+          <p class="portfolio-hero__designation">{{ section.settings.designation }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <div class="portfolio-hero__description">{{ section.settings.description }}</div>
+        {%- endif -%}
+
+        <div class="portfolio-hero__buttons">
+          {%- if section.settings.button_1_label != blank -%}
+            <a
+              {% if section.settings.button_1_link %}
+                href="{{ section.settings.button_1_link }}"
+              {% else %}
+                role="link" aria-disabled="true"
+              {% endif %}
+              class="button {% if section.settings.button_1_secondary %}button--secondary{% else %}button--primary{% endif %}"
+            >
+              {{- section.settings.button_1_label | escape -}}
+            </a>
+          {%- endif -%}
+
+          {%- if section.settings.button_2_label != blank -%}
+            <a
+              {% if section.settings.button_2_link %}
+                href="{{ section.settings.button_2_link }}"
+              {% else %}
+                role="link" aria-disabled="true"
+              {% endif %}
+              class="button {% if section.settings.button_2_secondary %}button--secondary{% else %}button--primary{% endif %}"
+            >
+              {{- section.settings.button_2_label | escape -}}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="portfolio-hero__image-wrapper">
+        {%- if section.settings.profile_image != blank -%}
+          {%- liquid
+            assign height = section.settings.profile_image.width | divided_by: section.settings.profile_image.aspect_ratio | round
+            assign fetch_priority = 'auto'
+            if section.index == 1
+              assign fetch_priority = 'high'
+            endif
+          -%}
+          {{
+            section.settings.profile_image
+            | image_url: width: 600
+            | image_tag:
+              height: height,
+              sizes: '(max-width: 749px) 280px, 400px',
+              widths: '300, 450, 600',
+              fetchpriority: fetch_priority,
+              class: 'portfolio-hero__image'
+          }}
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'portfolio-hero__image portfolio-hero__image--placeholder' }}
         {%- endif -%}
       </div>
     </div>
-
-    <div class="portfolio-hero__image-wrapper">
-      {%- if section.settings.profile_image != blank -%}
-        <img
-          src="{{ section.settings.profile_image | image_url: width: 600 }}"
-          srcset="
-            {{ section.settings.profile_image | image_url: width: 300 }} 300w,
-            {{ section.settings.profile_image | image_url: width: 450 }} 450w,
-            {{ section.settings.profile_image | image_url: width: 600 }} 600w
-          "
-          sizes="(max-width: 768px) 280px, 400px"
-          alt="{{ section.settings.profile_image.alt | default: section.settings.name }}"
-          class="portfolio-hero__image"
-          width="{{ section.settings.profile_image.width }}"
-          height="{{ section.settings.profile_image.height }}"
-          loading="eager"
-        >
-      {%- else -%}
-        {{ 'image' | placeholder_svg_tag: 'portfolio-hero__image portfolio-hero__image--placeholder' }}
-      {%- endif -%}
-    </div>
   </div>
-</section>
+</div>
 
 {% schema %}
 {
   "name": "Portfolio Hero Banner",
   "tag": "section",
-  "class": "portfolio-hero-section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -95,32 +119,6 @@
     },
     {
       "type": "header",
-      "content": "Buttons"
-    },
-    {
-      "type": "text",
-      "id": "button_1_label",
-      "label": "Button 1 Label",
-      "default": "View Projects"
-    },
-    {
-      "type": "url",
-      "id": "button_1_link",
-      "label": "Button 1 Link"
-    },
-    {
-      "type": "text",
-      "id": "button_2_label",
-      "label": "Button 2 Label",
-      "default": "Contact Me"
-    },
-    {
-      "type": "url",
-      "id": "button_2_link",
-      "label": "Button 2 Link"
-    },
-    {
-      "type": "header",
       "content": "Image"
     },
     {
@@ -130,13 +128,51 @@
     },
     {
       "type": "header",
-      "content": "Style"
+      "content": "Button 1"
     },
     {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background Color",
-      "default": "#fff8f2"
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Button 1 Label",
+      "default": "View Projects",
+      "info": "Leave blank to hide button"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Button 1 Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_1_secondary",
+      "label": "Use outline button style",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Button 2"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Button 2 Label",
+      "default": "Contact Me",
+      "info": "Leave blank to hide button"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Button 2 Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_2_secondary",
+      "label": "Use outline button style",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
     },
     {
       "type": "select",
@@ -147,6 +183,36 @@
         { "value": "center", "label": "Center" }
       ],
       "default": "left"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
     }
   ],
   "presets": [

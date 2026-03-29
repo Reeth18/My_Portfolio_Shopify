@@ -2,16 +2,10 @@
    Portfolio Hero Banner
    ========================================================================== */
 
-.portfolio-hero {
-  padding: 80px 20px;
-}
-
 .portfolio-hero__container {
   display: flex;
   align-items: center;
   gap: 60px;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
 /* ---------- Content column ---------- */
@@ -25,7 +19,6 @@
   font-size: 3rem;
   font-weight: 800;
   line-height: 1.15;
-  color: #1a1a1a;
   margin: 0 0 12px;
 }
 
@@ -40,7 +33,6 @@
 .portfolio-hero__description {
   font-size: 1.05rem;
   line-height: 1.7;
-  color: #444;
   margin: 0 0 32px;
   max-width: 540px;
 }
@@ -51,43 +43,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-}
-
-.portfolio-hero__btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px 32px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  border-radius: 6px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-
-/* Primary — outlined orange */
-.portfolio-hero__btn--primary {
-  background-color: transparent;
-  color: #ff7a00;
-  border: 2px solid #ff7a00;
-}
-
-.portfolio-hero__btn--primary:hover {
-  background-color: #ff7a00;
-  color: #fff;
-}
-
-/* Secondary — solid orange */
-.portfolio-hero__btn--secondary {
-  background-color: #ff7a00;
-  color: #fff;
-  border: 2px solid #ff7a00;
-}
-
-.portfolio-hero__btn--secondary:hover {
-  background-color: transparent;
-  color: #ff7a00;
 }
 
 /* ---------- Image column ---------- */
@@ -132,11 +87,7 @@
 
 /* ---------- Responsive ---------- */
 
-@media screen and (max-width: 768px) {
-  .portfolio-hero {
-    padding: 60px 20px;
-  }
-
+@media screen and (max-width: 749px) {
   .portfolio-hero__container {
     flex-direction: column;
     text-align: center;
@@ -171,10 +122,6 @@
 }
 
 @media screen and (max-width: 480px) {
-  .portfolio-hero {
-    padding: 48px 16px;
-  }
-
   .portfolio-hero__heading {
     font-size: 1.8rem;
   }
@@ -190,10 +137,5 @@
   .portfolio-hero__buttons {
     flex-direction: column;
     align-items: center;
-  }
-
-  .portfolio-hero__btn {
-    width: 100%;
-    max-width: 260px;
   }
 }
