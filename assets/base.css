@@ -3763,6 +3763,53 @@ details-disclosure > details {
   transform: translateX(4px);
 }
 
+/* Quick add button overlay on hover */
+.portfolio-featured-products .portfolio-project-card {
+  position: relative;
+}
+
+.portfolio-featured-products .portfolio-project-card__quick-add {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  z-index: 2;
+}
+
+.portfolio-featured-products .portfolio-project-card:hover .portfolio-project-card__quick-add {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.portfolio-featured-products .portfolio-project-card__quick-add .quick-add__submit {
+  min-width: 100%;
+  padding: 0.75rem 1.5rem;
+  background: #ff7a00;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.portfolio-featured-products .portfolio-project-card__quick-add .quick-add__submit:hover {
+  background: #e66d00;
+}
+
+.portfolio-featured-products .portfolio-project-card__quick-add .quick-add__submit[disabled] {
+  background: #999;
+  cursor: not-allowed;
+}
+
 /* Slider wrapper: position relative for arrow placement */
 .portfolio-featured-products .portfolio-slider-wrapper {
   position: relative;
